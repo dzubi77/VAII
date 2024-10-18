@@ -1,10 +1,12 @@
 import React from "react";
+import Layout from "../components/Layout";
 
 function CourseMenu() {
     return (
-        <h1>Courses</h1>
+        <Layout showTopContainer={false}>
+            <h1>Course page</h1>
+        </Layout>
     );
-
 }
 
 export default CourseMenu; 

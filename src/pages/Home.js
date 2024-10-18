@@ -1,17 +1,11 @@
 import React from "react";
-//import pathToImage from "./img/mafo_profile_pic.jpg";
 import '../styles/style.css'
+import Layout from "../components/Layout";
 
 function Home() {
     return (
-        <div className="top-container">
-            <div className="inner-container">
-                
-            </div>
-            <div className="inner-container">
-
-            </div>
-        </div>
+        <Layout showTopContainer ={true}>
+        </Layout>
     );
 }
 
