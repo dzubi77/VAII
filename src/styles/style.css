@@ -1,7 +1,5 @@
 .page-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
     min-height: 100vh;
 }
@@ -69,7 +67,16 @@
     }   
 }
 
-.form-container {
+.login-content {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    max-width: 50%;
+    align-items: center;
+    max-width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.login-content p {
+    margin-top: 5%;
 }
