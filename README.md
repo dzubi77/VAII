@@ -1,4 +1,4 @@
-Pre spustenie je potrebne mat nainstalovany Node.js.
-Dalej je potrebne stiahnut a rozbalit zip/natiahnut link repozitara.
-Nasledne je potrebne zadat v terminali prikaz npm -i.
-Nakoniec cez prikaz npm start sa spusti aplikacia.
+Aplikaciu mozno spustit v Dockeri.
+Je potrebne prejst do priecinka s aplikaciou, zbuildit docker image a sputit kontajner.
+docker build -t app1 .
+docker run -p [cisloPortu:cisloPortu] app1
