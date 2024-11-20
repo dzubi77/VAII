@@ -16,6 +16,10 @@ function Login() {
                             <input type="password" className="form-control" id="password"></input>
                         </div>
                     </form>
+                    <div className="teacherCheckBox">
+                        <input type="checkbox" id="teacher-checkBox"></input>
+                        <label>Teacher login</label>
+                    </div>
                     <button className="btn btn-primary">Log in</button>
                     <a href="/">Forgot password?</a>
                     <p>Do not have an account?</p>

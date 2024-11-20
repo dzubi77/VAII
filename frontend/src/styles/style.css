@@ -80,3 +80,9 @@
 .login-content p {
     margin-top: 5%;
 }
+
+.teacherCheckBox {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 2%;
+}
