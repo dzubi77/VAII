@@ -1,0 +1,46 @@
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+    text-align: center;
+  }
+  
+  .homepage-main {
+    display: flex;
+    width: 100%;
+  }
+  
+  .homepage-left,
+  .homepage-right {
+    width: 50%;
+  }
+  
+  .homepage-left img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .homepage-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    text-align: center;
+    color: white;
+  }
+  
+  .homepage-right p {
+    font-size: larger;
+    margin: 5%;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .homepage-main {
+      flex-direction: column;
+    }
+  
+    .homepage-left,
+    .homepage-right {
+      width: 100%;
+    }
+  }

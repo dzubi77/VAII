@@ -10,8 +10,12 @@ import java.util.UUID;
 
 @Service
 public class CourseService {
+    private final CourseRepository courseRepository;
+
     @Autowired
-    private CourseRepository courseRepository;
+    public CourseService(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
 
     public Course addCourse(Course course) {
         return courseRepository.save(course);
@@ -22,10 +26,10 @@ public class CourseService {
     }
 
     public Course getCourseById(UUID id) {
-        return null;
+        return courseRepository.findById(id).isPresent() ? courseRepository.findById(id).get() : null;
     }
 
     public void deleteCourse(UUID id) {
-
+        courseRepository.deleteById(id);
     }
 }
