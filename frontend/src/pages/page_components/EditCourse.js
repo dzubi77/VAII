@@ -6,8 +6,8 @@ import { addCourse } from "../../service/CourseAPI";
 //todo: validate form (check input) and save to db (then redirect to coursePage)
 function EditCourse() {
     const [formData, setFormData] = useState({
-        name: "",
-        desc: "",
+        courseName: "",
+        courseDescription: "",
         maxStudentCount: "",
     });
 
@@ -19,11 +19,11 @@ function EditCourse() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const course = {
-            name: formData.name,
-            description: formData.description,
-            maxStudentCount: parseInt(formData.maxStudentCount, 10), // Convert to number
+            courseName: formData.courseName,
+            courseDescription: formData.courseDescription,
+            maxStudentCount: parseInt(formData.maxStudentCount, 10),
           };
-          console.log(course.name + " " + course.description);
+          console.log(course.courseName + ", " + course.courseDescription);
         const response = await addCourse(course);
     }
 
@@ -32,9 +32,9 @@ function EditCourse() {
             <form onSubmit={handleSubmit}>
                 <div className="edit-course-content">
                     <label>Course name: </label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} />
+                    <input type="text" name="courseName" value={formData.courseName} onChange={handleChange} />
                     <label>Course description: </label>
-                    <input type="text" name="desc" value={formData.desc} onChange={handleChange} />
+                    <input type="text" name="courseDescription" value={formData.courseDescription} onChange={handleChange} />
                     <label>Max student count: </label>
                     <input type="text" name="maxStudentCount" value={formData.maxStudentCount} onChange={handleChange} />
                     <button type="submit" className="btn btn-success">Create/update course</button>
