@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Course from "./page_components/Course";
+import { fetchItems } from "../service/CourseAPI";
 
-//renders courseList, allows to create, update and delete course
+//renders courseList, allows to create, update or delete course
 function CourseMenu() {
-    const items = [{ id: 1, name:"name", desc:'Description' },
-        { id: 2, name:"name", desc:'Description' },
-        { id: 3, name:"name", desc:'Description' },
-        { id: 4, name:"name", desc:'Description' }
-    ];
+    const [items, setItems] = useState([]);
+    const [error, setError] = useState("");
+    
+    useEffect(() => {
+        fetchItems(setItems, setError);
+    }, []);
 
     return (
         <>
             <div className="course-main-content">
-                <h1>Course page //pridavanie kurzov bude neskor mozne az po teacher logine</h1>
                 <a href="/edit_course" type="button" className="btn btn-primary">Create new course</a>
+                {error && <p>{error}</p>}
                 <div className="course-container">
                     {
                         items.map(item => (

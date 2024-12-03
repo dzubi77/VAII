@@ -1,19 +1,16 @@
 package vaii_sp.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Course {
@@ -24,14 +21,4 @@ public class Course {
     private String courseDescription;
     private int studentCount = 0;
     private int maxStudentCount;
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseId=" + courseId +
-                ", courseName='" + courseName + '\'' +
-                ", courseDescription='" + courseDescription + '\'' +
-                ", maxStudentCount=" + maxStudentCount +
-                '}';
-    }
 }

@@ -1,6 +1,6 @@
 package vaii_sp.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,22 +13,17 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/courses")
+@RequiredArgsConstructor
 public class CourseController {
     private final CourseService courseService;
 
-    @Autowired
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
-    }
-
     @PostMapping
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
-        System.out.println(course.toString());
         Course c = courseService.addCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).body(c);
     }
 
-    @GetMapping
+    @GetMapping("/allCourses")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> list = courseService.getAllCourses();
         return ResponseEntity.ok(list);
@@ -41,10 +36,10 @@ public class CourseController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCourse(@PathVariable UUID id) {
+    @DeleteMapping("/{courseName}")
+    public ResponseEntity<String> deleteCourse(@PathVariable String courseName) {
         try {
-            courseService.deleteCourse(id);
+            courseService.deleteCourseByCourseName(courseName);
             return ResponseEntity.ok("Course has been deleted");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Such course does not exist!");

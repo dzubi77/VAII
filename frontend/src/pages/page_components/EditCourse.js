@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import '../../styles/course_style.css'
 import { addCourse } from "../../service/CourseAPI";
 
-//form for creating new/editing old course
-//todo: validate form (check input) and save to db (then redirect to coursePage)
+//form for creating new/editing old courses
+//todo: validate form (check input), then redirect to coursePage
 function EditCourse() {
     const [formData, setFormData] = useState({
         courseName: "",
         courseDescription: "",
         maxStudentCount: "",
     });
+
+    const navigateTo = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -23,8 +26,8 @@ function EditCourse() {
             courseDescription: formData.courseDescription,
             maxStudentCount: parseInt(formData.maxStudentCount, 10),
           };
-          console.log(course.courseName + ", " + course.courseDescription);
-        const response = await addCourse(course);
+        await addCourse(course);
+        navigateTo('/courses');
     }
 
     return (
