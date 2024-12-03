@@ -6,5 +6,4 @@ import vaii_sp.backend.model.Course;
 import java.util.UUID;
 
 public interface CourseRepository extends JpaRepository<Course, UUID> {
-    void deleteCourseByCourseName(String name);
 }

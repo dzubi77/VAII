@@ -38,13 +38,15 @@ export const getAllCourses = async() => {
     return await response.json();
 }
 
-export const deleteCourse = async (courseName) => {
-    const response = await fetch(`${COURSE_API_URL}/courses/${courseName}`, {
+export const deleteCourse = async (id) => {
+    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
         method: "DELETE",
     });
     if (!response.ok) {
-        const errorDetails = await response.json();
-        throw new Error(`Failed to delete item: ${errorDetails.message || response.status}`);
+        throw new Error(`Failed to delete item: ${response.status}`);
     }
-    return await response.json();
+    if (response.status !== 204) {
+        return await response.json();
+    }
+    return null;
 }

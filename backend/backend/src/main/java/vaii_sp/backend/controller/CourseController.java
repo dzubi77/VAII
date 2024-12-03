@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import vaii_sp.backend.model.Course;
 import vaii_sp.backend.service.CourseService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -36,13 +38,13 @@ public class CourseController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @DeleteMapping("/{courseName}")
-    public ResponseEntity<String> deleteCourse(@PathVariable String courseName) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable UUID id) {
         try {
-            courseService.deleteCourseByCourseName(courseName);
-            return ResponseEntity.ok("Course has been deleted");
+            courseService.deleteCourseById(id);
+            return ResponseEntity.noContent().build(); // Return 204 No Content
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Such course does not exist!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 without body
         }
     }
 }

@@ -25,7 +25,7 @@ public class CourseService {
         return courseRepository.findById(id).isPresent() ? courseRepository.findById(id).get() : null;
     }
 
-    public void deleteCourseByCourseName(String name) {
-        courseRepository.deleteCourseByCourseName(name);
+    public void deleteCourseById(UUID id) {
+        courseRepository.deleteById(id);
     }
 }
