@@ -11,7 +11,10 @@ function CourseMenu() {
     const [error, setError] = useState('');
     
     useEffect(() => {
-        fetchItems(setFilteredItems, setError);
+        fetchItems((data) => {
+            setItems(data);
+            setFilteredItems(data);
+        }, setError);
     }, []);
 
     const handleDelete = async (courseId) => {
@@ -34,6 +37,7 @@ function CourseMenu() {
         const filtered = items.filter((item) =>
             item.courseName.toLowerCase().includes(courseName.toLowerCase())
         );
+        console.log(filtered);
         setFilteredItems(filtered);
     };
 
