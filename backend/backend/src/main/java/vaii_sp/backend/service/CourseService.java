@@ -25,6 +25,14 @@ public class CourseService {
         return courseRepository.findById(id).isPresent() ? courseRepository.findById(id).get() : null;
     }
 
+    public Course updateCourse(UUID id, Course course) {
+        Course oldCourse = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found"));
+        oldCourse.setCourseName(course.getCourseName());
+        oldCourse.setCourseDescription(course.getCourseDescription());
+        oldCourse.setMaxStudentCount(course.getMaxStudentCount());
+        return courseRepository.save(oldCourse);
+    }
+
     public void deleteCourseById(UUID id) {
         courseRepository.deleteById(id);
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Course from "./page_components/Course";
 import { fetchItems, deleteCourse } from "../service/CourseAPI";
+import { Link } from "react-router-dom";
 
 //renders courseList, allows to create, update or delete course
 function CourseMenu() {
@@ -26,7 +27,7 @@ function CourseMenu() {
     return (
         <>
             <div className="course-main-content">
-                <a href="/edit_course" type="button" className="btn btn-primary">Create new course</a>
+                <Link to="/edit_course" className="btn btn-primary">Create new course</Link>
                 {error && <p>{error}</p>}
                 <div className="course-container">
                     {

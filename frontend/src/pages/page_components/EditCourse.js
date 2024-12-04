@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom"
 import '../../styles/course_style.css'
-import { addCourse } from "../../service/CourseAPI";
-
+import { getCourseById, updateCourse, addCourse } from '../../service/CourseAPI';
 //form for creating new/editing old courses
-//todo: validate form (check input), then redirect to coursePage
+//TODO: validate form (check input)
 function EditCourse() {
+    const { courseId } = useParams();
     const [formData, setFormData] = useState({
         courseName: "",
         courseDescription: "",
@@ -13,6 +13,20 @@ function EditCourse() {
     });
 
     const navigateTo = useNavigate();
+
+    useEffect(() => {
+        if (courseId) {
+            const loadCourse = async() => {
+                const course = await getCourseById(courseId);
+                setFormData({
+                    courseName: course.courseName,
+                    courseDescription: course.courseDescription,
+                    maxStudentCount: course.maxStudentCount.toString(),
+                });
+            };
+            loadCourse();
+        }
+    }, [courseId]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -26,7 +40,12 @@ function EditCourse() {
             courseDescription: formData.courseDescription,
             maxStudentCount: parseInt(formData.maxStudentCount, 10),
           };
-        await addCourse(course);
+
+        if (courseId) {
+            await updateCourse(courseId, course)
+        } else {
+            await addCourse(course);
+        }
         navigateTo('/courses');
     }
 
@@ -40,7 +59,7 @@ function EditCourse() {
                     <input type="text" name="courseDescription" value={formData.courseDescription} onChange={handleChange} />
                     <label>Max student count: </label>
                     <input type="text" name="maxStudentCount" value={formData.maxStudentCount} onChange={handleChange} />
-                    <button type="submit" className="btn btn-success">Create/update course</button>
+                    <button type="submit" className="btn btn-success">{courseId ? "Update" : "Create"} course</button>
                 </div>
             </form>
         </>

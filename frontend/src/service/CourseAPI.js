@@ -27,13 +27,36 @@ export const addCourse = async (course) => {
 export const getAllCourses = async() => {
     const response = await fetch(`${COURSE_API_URL}/courses/allCourses`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
     });
     if (!response.ok) {
         const errorDetails = await response.json();
         throw new Error(`Failed to fetch items: ${errorDetails.message || response.status}`);
+    }
+    return await response.json();
+}
+
+export const getCourseById = async(id) => {
+    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
+        method: "GET",
+    });
+    if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(`Failed to fetch items: ${errorDetails.message || response.status}`);
+    }
+    return await response.json();
+}
+
+export const updateCourse = async(id, course) => {
+    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
+        method: "PUT", 
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(course),
+    });
+    if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(`Failed to edit item: ${errorDetails.message || response.status}`);
     }
     return await response.json();
 }
