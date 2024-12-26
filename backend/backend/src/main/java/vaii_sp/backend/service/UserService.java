@@ -2,9 +2,11 @@ package vaii_sp.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import vaii_sp.backend.controller.UserWOP;
 import vaii_sp.backend.model.User;
 import vaii_sp.backend.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,8 +19,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserWOP> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserWOP> newList = new ArrayList<>();
+        for (User user : users) {
+            UserWOP newUser = new UserWOP(user);
+            newList.add(newUser);
+        }
+        return newList;
     }
 
     public User getUserById(UUID id) {

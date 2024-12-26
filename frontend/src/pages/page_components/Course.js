@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../../styles/course_style.css';
 
-//represents one courseList item
+//represents one courseList item from teacher view
 export function Course({ item, onDelete }) {
     return (
         <>

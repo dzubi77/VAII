@@ -2,51 +2,62 @@
     display: flex;
     flex-direction: column;
     align-items: center; 
+    justify-content: center;
+    margin-top: 1%;
 }
 
 .signup-content {
     width: 100%;
-    max-width: 50%;
+    max-width: 50%; 
     margin: 0 auto;
 }
 
 .signup-content table {
-    width: 100%;
-    margin: 1%;
+    width: 100%; 
     border-collapse: collapse;
 }
 
 .signup-content td {
-    vertical-align: middle;
+    padding: 1%;
+    vertical-align: top;
 }
 
 .signup-content label {
-    display: block; 
+    display: block;
     text-align: right;
-    margin-right: 8px;
+    margin-bottom: 4px;
 }
 
 .signup-content input {
-    width: 100%;
+    width: 100%; 
     box-sizing: border-box;
 }
 
-.submit-signup-button {
-    margin-top: 1%;
-    text-align: center;
+.submit-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
     .signup-content table,
     .signup-content tr,
     .signup-content td {
-        display: block;
+        display: block; 
         width: 100%;
     }
 
-    .signup-content td {
+    .signup-content label {
         text-align: left;
-        margin-bottom: 1%;
+    }
+
+    .error-message {
+        font-size: 0.8rem;
     }
 }
-

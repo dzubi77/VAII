@@ -10,6 +10,7 @@ import vaii_sp.backend.service.UserService;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -24,8 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getUsers() {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserWOP> getUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
