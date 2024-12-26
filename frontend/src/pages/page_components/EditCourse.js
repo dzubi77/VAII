@@ -5,7 +5,7 @@ import { getCourseById, updateCourse, addCourse } from '../../service/CourseAPI'
 
 //form for creating new/editing old courses
 
-function EditCourse() {
+export function EditCourse() {
     const { courseId } = useParams();
     const [formData, setFormData] = useState({
         courseName: "",
@@ -99,5 +99,3 @@ function EditCourse() {
         </>
     );  
 }
-
-export default EditCourse;

@@ -3,7 +3,7 @@ import '../styles/home_style.css';
 import test_image from '../img/sas.png';
 
 //renders home page
-function Home() {
+export function Home() {
     return (
         <>
             <div className="homepage-main">
@@ -19,5 +19,3 @@ function Home() {
         </>
     );
 }
-
-export default Home;

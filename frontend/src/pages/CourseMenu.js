@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Course from "./page_components/Course";
+import { Course } from "./page_components/Course";
 import { fetchItems, deleteCourse } from "../service/CourseAPI";
 import { Link } from "react-router-dom";
 
 //renders courseList, allows to create, search, update or delete course
-function CourseMenu() {
+export function CourseMenu() {
     const [items, setItems] = useState([]);
     const [courseName, setCourseName] = useState('');
     const [filteredItems, setFilteredItems] = useState([]);
@@ -67,5 +67,3 @@ function CourseMenu() {
         </>
     );
 }
-
-export default CourseMenu; 

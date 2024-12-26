@@ -1,4 +1,4 @@
-const COURSE_API_URL = "http://localhost:8080";
+const COURSE_API_URL = "http://localhost:8080/courses";
 
 export const fetchItems = async (setItems, setError) => {
     try {
@@ -10,7 +10,7 @@ export const fetchItems = async (setItems, setError) => {
 }
 
 export const addCourse = async (course) => {
-    const response = await fetch(`${COURSE_API_URL}/courses`, {
+    const response = await fetch(`${COURSE_API_URL}`, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const addCourse = async (course) => {
 }
 
 export const getAllCourses = async() => {
-    const response = await fetch(`${COURSE_API_URL}/courses/allCourses`, {
+    const response = await fetch(`${COURSE_API_URL}/allCourses`, {
         method: "GET",
     });
     if (!response.ok) {
@@ -36,7 +36,7 @@ export const getAllCourses = async() => {
 }
 
 export const getCourseById = async(id) => {
-    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
+    const response = await fetch(`${COURSE_API_URL}/${id}`, {
         method: "GET",
     });
     if (!response.ok) {
@@ -47,7 +47,7 @@ export const getCourseById = async(id) => {
 }
 
 export const updateCourse = async(id, course) => {
-    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
+    const response = await fetch(`${COURSE_API_URL}/${id}`, {
         method: "PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const updateCourse = async(id, course) => {
 }
 
 export const deleteCourse = async (id) => {
-    const response = await fetch(`${COURSE_API_URL}/courses/${id}`, {
+    const response = await fetch(`${COURSE_API_URL}/${id}`, {
         method: "DELETE",
     });
     if (!response.ok) {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../../styles/course_style.css';
 
 //represents one courseList item
-function Course({ item, onDelete }) {
+export function Course({ item, onDelete }) {
     return (
         <>
             <div className="course-item-content">
@@ -17,5 +17,3 @@ function Course({ item, onDelete }) {
         </>
     );
 }
-
-export default Course;

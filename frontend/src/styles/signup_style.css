@@ -1,0 +1,52 @@
+.main-signup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.signup-content {
+    width: 100%;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+.signup-content table {
+    width: 100%;
+    margin: 1%;
+    border-collapse: collapse;
+}
+
+.signup-content td {
+    vertical-align: middle;
+}
+
+.signup-content label {
+    display: block; 
+    text-align: right;
+    margin-right: 8px;
+}
+
+.signup-content input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submit-signup-button {
+    margin-top: 1%;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .signup-content table,
+    .signup-content tr,
+    .signup-content td {
+        display: block;
+        width: 100%;
+    }
+
+    .signup-content td {
+        text-align: left;
+        margin-bottom: 1%;
+    }
+}
+
