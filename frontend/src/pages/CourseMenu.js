@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Course } from "./page_components/Course";
+import { CourseTeacherView } from "./page_components/Course";
 import { fetchItems, deleteCourse } from "../service/CourseAPI";
 import { Link } from "react-router-dom";
 
-//renders courseList, allows to create, search, update or delete course
 export function CourseMenu() {
     const [items, setItems] = useState([]);
     const [courseName, setCourseName] = useState('');
@@ -58,9 +57,10 @@ export function CourseMenu() {
                 {error && <p>{error}</p>}
                 <div className="course-container">
                     {
+                        //TODO: show proper view according to role
                         filteredItems.map(item => (
-                            <Course key={item.courseId} item={item} onDelete={handleDelete} />
-                        ))
+                            <CourseTeacherView key={item.courseId} item={item} onDelete={handleDelete} />
+                        )) 
                     }
                 </div>
             </div>

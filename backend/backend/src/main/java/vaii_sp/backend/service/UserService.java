@@ -1,6 +1,7 @@
 package vaii_sp.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vaii_sp.backend.controller.UserWOP;
 import vaii_sp.backend.model.User;
@@ -14,8 +15,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public User addUser(User user) {
+        String hashedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+        if (user.getUsername().equals("admin")) {
+            user.setUserRole("ADMIN");
+        }
+        if (user.getUsername().equals("a")) {
+            user.setUserRole("STUDENT");
+        } else {
+            user.setUserRole("TEACHER");
+        }
         return userRepository.save(user);
     }
 
@@ -42,5 +54,11 @@ public class UserService {
 
     public void deleteUser(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    public String authenticate(String username, String password) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        return user != null && bCryptPasswordEncoder.matches(password, user.getPassword())
+                ? user.getUserRole() : null;
     }
 }

@@ -24,6 +24,14 @@ public class UserController {
         return new UserWOP(newUser);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+        if (userService.authenticate(user.getUsername(), user.getPassword()) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseEntity.ok().body(user.getUserRole());
+    }
+
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<UserWOP> getUsers() {

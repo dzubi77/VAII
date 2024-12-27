@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../styles/signup_style.css';
+import '../styles/form_style.css';
 import { createUser, getUsers } from "../service/UserAPI";
 import { useNavigate } from 'react-router-dom';
 import FormValidation from '../service/FormValidation';

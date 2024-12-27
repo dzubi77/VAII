@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function FormValidation(initialFormData, validateFn) {
+function FormValidation(initialFormData, validateForm) {
     const [formData, setFormData] = useState(initialFormData);
     const [error, setError] = useState('');
 
@@ -10,11 +10,11 @@ function FormValidation(initialFormData, validateFn) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async(e, submitFn) => {
+    const handleSubmit = async(e, submitForm) => {
         e.preventDefault();
-        const isValid = await validateFn(formData, setError);
+        const isValid = await validateForm(formData, setError);
         if (isValid) {
-            await submitFn(formData);
+            await submitForm(formData);
         }
     };
 
