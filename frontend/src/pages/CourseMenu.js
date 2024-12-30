@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { CourseTeacherView } from "./page_components/Course";
+import { CourseTeacherView, CourseStudentView } from "./page_components/Course";
 import { fetchItems, deleteCourse } from "../service/CourseAPI";
 import { Link } from "react-router-dom";
 
 export function CourseMenu() {
     const [items, setItems] = useState([]);
-    const [courseName, setCourseName] = useState('');
     const [filteredItems, setFilteredItems] = useState([]);
+    const [courseName, setCourseName] = useState('');
+    const [deletingCourseId, setDeletingCourseId] = useState(null);
     const [error, setError] = useState('');
+
+    const role = localStorage.getItem('role');
     
     useEffect(() => {
         fetchItems((data) => {
@@ -18,12 +21,16 @@ export function CourseMenu() {
 
     const handleDelete = async (courseId) => {
         if (window.confirm("Are you sure you want to delete the course?")) {
+            setDeletingCourseId(courseId);
             try {
                 await deleteCourse(courseId);
                 alert("Course deleted successfully!");
                 setItems((prevItems) => prevItems.filter((item) => item.courseId !== courseId));
+                setFilteredItems((prevFiltered) => prevFiltered.filter((item) => item.courseId !== courseId));
             } catch (error) {
                 setError(error.message);
+            } finally {
+                setDeletingCourseId(null);
             }
         }
     };
@@ -36,7 +43,6 @@ export function CourseMenu() {
         const filtered = items.filter((item) =>
             item.courseName.toLowerCase().includes(courseName.toLowerCase())
         );
-        console.log(filtered);
         setFilteredItems(filtered);
     };
 
@@ -48,19 +54,26 @@ export function CourseMenu() {
         <>
             <div className="course-main-content">
                 <div className="course-options-content">
-                    <Link to="/edit_course" className="btn btn-primary">Create new course</Link>
+                    { 
+                        (role === "TEACHER" || role === "ADMIN") && (
+                            <Link to="/edit_course" className="btn btn-primary">Create new course</Link>
+                        )
+                    }
                     <div className="course-search-content">
-                        <input type="text" onChange={handleInputChange} placeholder="Search by course name..."></input>
+                        <input type="text" onChange={handleInputChange} placeholder="Search by course name..."/>
                         <button type="submit" className="btn btn-primary" onClick={handleSearch}>Search...</button>
                     </div>
                 </div>
                 {error && <p>{error}</p>}
                 <div className="course-container">
                     {
-                        //TODO: show proper view according to role
+                        role === "TEACHER" || role === "ADMIN" ? 
                         filteredItems.map(item => (
-                            <CourseTeacherView key={item.courseId} item={item} onDelete={handleDelete} />
-                        )) 
+                            <CourseTeacherView key={item.courseId} item={item} onDelete={handleDelete} isDeleting={deletingCourseId === item.courseId} />
+                        )) : 
+                        filteredItems.map(item => (
+                            <CourseStudentView key={item.courseId} item={item} />
+                        ))
                     }
                 </div>
             </div>

@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import vaii_sp.backend.model.User;
 import vaii_sp.backend.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -25,11 +27,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
-        if (userService.authenticate(user.getUsername(), user.getPassword()) == null) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody User user) {
+        if (!userService.authenticate(user.getUsername(), user.getPassword())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return ResponseEntity.ok().body(user.getUserRole());
+        Map<String, String> response = new HashMap<>();
+        var userFromDB = userService.getUserByUsername(user.getUsername());
+        response.put("role", userFromDB.getUserRole());
+        response.put("name", userFromDB.getName());
+        response.put("surname", userFromDB.getSurname());
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/all")

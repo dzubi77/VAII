@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function FormValidation(initialFormData, validateForm) {
     const [formData, setFormData] = useState(initialFormData);

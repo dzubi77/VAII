@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.findById(id).isPresent() ? userRepository.findById(id).get() : null;
     }
 
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
     public User updateUser(UUID id, User user) {
         User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         u.setUsername(user.getUsername());
@@ -56,9 +60,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public String authenticate(String username, String password) {
+    public boolean authenticate(String username, String password) {
         User user = userRepository.findByUsername(username).orElse(null);
-        return user != null && bCryptPasswordEncoder.matches(password, user.getPassword())
-                ? user.getUserRole() : null;
+        return user != null && bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 }
