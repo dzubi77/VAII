@@ -28,10 +28,10 @@ export function UserProvider({ children }) {
             });
 
             if (response.ok) {
+                setError('');
                 const data = await response.json();
                 const { role, surname, name } = data;
-
-                const userData = { username, name, surname, role };
+                const userData = { name, surname, role };
                 localStorage.setItem('user', JSON.stringify(userData));
                 localStorage.setItem('role', role);
                 setUser(userData);

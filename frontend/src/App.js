@@ -9,29 +9,31 @@ import { SignUp } from "./pages/SignUp";
 import { PrivateRoute } from "./layout/PrivateRoute";
 import { Unauthorized } from "./layout/UnauthorizedPage";
 import { UserProvider } from "./service/UserProvider";
+import '../src/styles/home_style.css'
 
 function App() {
   return (
     <>
-      
-      <BrowserRouter>
-        <UserProvider>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/signup' element={<SignUp/>}/>
-            <Route path='/courses' element={<CourseMenu/>}/>
+      <div className="app-container">
+        <BrowserRouter>
+          <UserProvider>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Home/>} />
+              <Route path='/login' element={<Login/>}/>
+              <Route path='/signup' element={<SignUp/>}/>
+              <Route path='/courses' element={<CourseMenu/>}/>
 
-            <Route path='/edit_course' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
-            <Route path='/edit_course/:courseId' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
-            <Route path='/my_profile' element={<PrivateRoute allowedRoles={['TEACHER', 'STUDENT', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
+              <Route path='/edit_course' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
+              <Route path='/edit_course/:courseId' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
+              <Route path='/my_profile' element={<PrivateRoute allowedRoles={['TEACHER', 'STUDENT', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
 
-            <Route path='/unauthorized' element={<Unauthorized/>}/>
-          </Routes>
-          <Footer />
-        </UserProvider>
-      </BrowserRouter> 
+              <Route path='/unauthorized' element={<Unauthorized/>}/>
+            </Routes>
+            <Footer />
+          </UserProvider>
+        </BrowserRouter>
+      </div>
     </>
   );
 }

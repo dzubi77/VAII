@@ -4,7 +4,10 @@ import { Navigate } from 'react-router-dom';
 
 export function Login() {
     const { user, login, error } = useUser();
-    const [formData, setFormData] = useState({ username: '', password: '' });
+    const [formData, setFormData] = useState({ 
+        username: '', 
+        password: '' 
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,23 +36,13 @@ export function Login() {
                             <tr>
                                 <td><label>Username:</label></td>
                                 <td>
-                                    <input 
-                                        type="text" 
-                                        name="username" 
-                                        value={formData.username} 
-                                        onChange={handleChange} 
-                                    />
+                                    <input type="text" name="username" value={formData.username} onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>
                                 <td><label>Password:</label></td>
                                 <td>
-                                    <input 
-                                        type="password" 
-                                        name="password" 
-                                        value={formData.password} 
-                                        onChange={handleChange} 
-                                    />
+                                    <input type="password" name="password" value={formData.password} onChange={handleChange} />
                                 </td>
                             </tr>
                         </tbody>

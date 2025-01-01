@@ -7,14 +7,12 @@ export function PrivateRoute({ children, allowedRoles }) {
         return <Navigate to='/login'/>;
     }
 
-    
     if (!allowedRoles.includes(localStorage.getItem('role'))) {
         return <Navigate to='/unauthorized'/>;
     }
     
     return (
         <>
-            <h1>This will be accessible only after login!</h1>
             {children}
         </>
     );
