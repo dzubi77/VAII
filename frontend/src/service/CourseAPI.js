@@ -1,13 +1,16 @@
-const COURSE_API_URL = "http://localhost:8080/courses";
+const COURSE_API_URL = process.env.REACT_APP_BACKEND_URL + '/courses';
 
 export const fetchItems = async (setItems, setError) => {
+    console.log(COURSE_API_URL);
     try {
-        const fetched = await getAllCourses();
-        setItems(fetched);
+        const fetched = await fetch(`${COURSE_API_URL}/allCourses`);
+        const data = await fetched.json();
+        setItems(data);
     } catch (error) {
         setError(error.message);
     }
-}
+};
+
 
 export const addCourse = async (course) => {
     const response = await fetch(`${COURSE_API_URL}`, {

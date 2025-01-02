@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { USER_API_URL } from './UserAPI';
 
 const UserContext = createContext();
 
@@ -19,7 +20,7 @@ export function UserProvider({ children }) {
         const { username, password } = formData;
 
         try {
-            const response = await fetch("http://localhost:8080/users/login", {
+            const response = await fetch(`${USER_API_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
