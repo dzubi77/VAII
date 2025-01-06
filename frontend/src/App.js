@@ -9,6 +9,7 @@ import { SignUp } from "./pages/SignUp";
 import { PrivateRoute } from "./layout/PrivateRoute";
 import { Unauthorized } from "./layout/UnauthorizedPage";
 import { UserProvider } from "./service/UserProvider";
+import { MyProfile } from "./pages/MyProfile";
 import '../src/styles/home_style.css'
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
 
               <Route path='/edit_course' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
               <Route path='/edit_course/:courseId' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
-              <Route path='/my_profile' element={<PrivateRoute allowedRoles={['TEACHER', 'STUDENT', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
+              <Route path='/my_profile' element={<PrivateRoute allowedRoles={['TEACHER', 'STUDENT', 'ADMIN']}><MyProfile/></PrivateRoute>}/>
 
               <Route path='/unauthorized' element={<Unauthorized/>}/>
             </Routes>

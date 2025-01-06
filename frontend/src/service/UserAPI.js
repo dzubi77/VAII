@@ -23,13 +23,7 @@ export const getUsers = async() => {
         const errorDetails = await response.json();
         throw new Error(`Failed to fetch users: ${errorDetails.message || response.status}`);
     }
-    const bla = await response.json();
-    console.log(bla);
-    return bla;
-}
-
-export const getUserById = async() => {
-
+    return await response.json();
 }
 
 export const updateUser = async() => {

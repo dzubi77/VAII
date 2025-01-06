@@ -1,7 +1,6 @@
 const COURSE_API_URL = process.env.REACT_APP_BACKEND_URL + '/courses';
 
 export const fetchItems = async (setItems, setError) => {
-    console.log(COURSE_API_URL);
     try {
         const fetched = await fetch(`${COURSE_API_URL}/allCourses`);
         const data = await fetched.json();
