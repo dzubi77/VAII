@@ -2,6 +2,7 @@ package vaii_sp.backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import vaii_sp.backend.controller.UserWOP;
 
 import java.util.Set;
 import java.util.UUID;
@@ -26,9 +27,12 @@ public class Course {
     @JoinColumn(name = "instructor_id")
     private User instructor;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Assignment> assignments;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks;
+
+    @ManyToMany(mappedBy = "enrolledCourses")
+    private Set<User> students;
 }

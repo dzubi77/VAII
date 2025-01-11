@@ -28,4 +28,33 @@ public class User {
 
     @OneToMany(mappedBy = "instructor")
     private Set<Course> courses;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Course> enrolledCourses;
+
+    public void assignCourse(Course course, boolean isStudent) {
+        if (isStudent) {
+            if (!enrolledCourses.contains(course)) {
+                enrolledCourses.add(course);
+                course.getStudents().add(this);
+            }
+        } else {
+            courses.add(course);
+        }
+    }
+
+    public void dropCourse(Course course) {
+        if (enrolledCourses.remove(course)) {
+            course.getStudents().remove(this);
+        }
+    }
+
+    public void deleteAsInstructor(Course course) {
+        courses.remove(course);
+    }
 }

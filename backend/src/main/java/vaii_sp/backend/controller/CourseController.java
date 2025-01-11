@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vaii_sp.backend.model.Course;
+import vaii_sp.backend.model.User;
 import vaii_sp.backend.service.CourseService;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class CourseController {
     @PostMapping
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
         Course c = courseService.addCourse(course);
+        if (c == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(c);
     }
 
@@ -50,4 +54,21 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PutMapping("/{courseId}/enroll/{studentId}")
+    public ResponseEntity<Void> enrollStudentToCourse(@PathVariable UUID courseId, @PathVariable UUID studentId) {
+        if (courseService.enrollStudent(courseId, studentId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/{courseId}/drop/{studentId}")
+    public ResponseEntity<Void> dropStudentFromCourse(@PathVariable UUID courseId, @PathVariable UUID studentId) {
+        if (courseService.dropStudent(courseId, studentId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
+

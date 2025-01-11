@@ -7,9 +7,7 @@ import vaii_sp.backend.controller.UserWOP;
 import vaii_sp.backend.model.User;
 import vaii_sp.backend.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -18,18 +16,11 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public User addUser(User user) {
-        String hashedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
-        switch (user.getUsername()) {
-            case "admin" -> {
-                user.setUserRole("ADMIN");
-            }
-            case "teacher" -> {
-                user.setUserRole("TEACHER");
-            }
-            default -> {
-                user.setUserRole("STUDENT");
-            }
+        user.setPassword(this.hashPassword(user.getPassword()));
+        if (user.getUsername().startsWith("@$")) { //TODO: fix assigning of roles
+            user.setUserRole("TEACHER");
+        } else {
+            user.setUserRole("STUDENT");
         }
         return userRepository.save(user);
     }
@@ -54,8 +45,7 @@ public class UserService {
 
     public User updateUser(UUID id, User user) {
         User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        u.setUsername(user.getUsername());
-        u.setPassword(user.getPassword());
+        user.setPassword(this.hashPassword(user.getPassword()));
         return userRepository.save(u);
     }
 
@@ -67,4 +57,19 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElse(null);
         return user != null && bCryptPasswordEncoder.matches(password, user.getPassword());
     }
+
+    public String hashPassword(String password) {
+        return bCryptPasswordEncoder.encode(password);
+    }
+
+    public Map<String, String> response(User user) {
+        Map<String, String> response = new HashMap<>();
+        var userFromDB = this.getUserByUsername(user.getUsername());
+        response.put("userId", userFromDB.getUserId().toString());
+        response.put("role", userFromDB.getUserRole());
+        response.put("name", userFromDB.getName());
+        response.put("surname", userFromDB.getSurname());
+        return response;
+    }
 }
+

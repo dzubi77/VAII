@@ -30,11 +30,7 @@ public class UserController {
         if (!userService.authenticate(user.getUsername(), user.getPassword())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        Map<String, String> response = new HashMap<>();
-        var userFromDB = userService.getUserByUsername(user.getUsername());
-        response.put("role", userFromDB.getUserRole());
-        response.put("name", userFromDB.getName());
-        response.put("surname", userFromDB.getSurname());
+        Map<String, String> response = userService.response(user);
         return ResponseEntity.ok().body(response);
     }
 
@@ -45,17 +41,27 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserWOP> getUser(@PathVariable UUID id) {
-        return null;
+    public UserWOP getUser(@PathVariable UUID id) {
+        System.out.println("Received id: " + id);
+        User user = userService.getUserById(id);
+        return new UserWOP(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserWOP> updateUser(@PathVariable UUID id, @RequestBody User user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public UserWOP updateUser(@PathVariable UUID id, @RequestBody User user) {
+        User updated = userService.updateUser(id, user);
+        return new UserWOP(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
-        return null;
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
+
