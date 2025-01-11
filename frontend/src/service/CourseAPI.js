@@ -10,7 +10,6 @@ export const fetchItems = async (setItems, setError) => {
     }
 };
 
-
 export const addCourse = async (course) => {
     const response = await fetch(`${COURSE_API_URL}`, {
         method: "POST", 

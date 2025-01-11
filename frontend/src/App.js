@@ -11,6 +11,7 @@ import { Unauthorized } from "./layout/UnauthorizedPage";
 import { UserProvider } from "./service/UserProvider";
 import { MyProfile } from "./pages/MyProfile";
 import '../src/styles/home_style.css'
+import { CourseView } from "./pages/page_components/Course";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path='/login' element={<Login/>}/>
               <Route path='/signup' element={<SignUp/>}/>
               <Route path='/courses' element={<CourseMenu/>}/>
+              <Route path='/course/:courseId' element={<CourseView/>}/>
 
               <Route path='/edit_course' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>
               <Route path='/edit_course/:courseId' element={<PrivateRoute allowedRoles={['TEACHER', 'ADMIN']}><EditCourse/></PrivateRoute>}/>

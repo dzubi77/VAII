@@ -26,6 +26,17 @@ export const getUsers = async() => {
     return await response.json();
 }
 
+export const getUserById = async(id) => {
+    const response = await fetch(`${USER_API_URL}/${id}`, {
+        method: "GET",
+    });
+    if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(`Failed to fetch items: ${errorDetails.message || response.status}`);
+    }
+    return await response.json();
+}
+ 
 export const updateUser = async() => {
 
 }

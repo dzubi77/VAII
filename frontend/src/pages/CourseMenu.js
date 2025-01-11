@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CourseTeacherView, CourseStudentView } from "./page_components/Course";
+import { CourseView } from "./page_components/Course";
 import { fetchItems, deleteCourse } from "../service/CourseAPI";
 import { Link } from "react-router-dom";
 
@@ -67,12 +67,8 @@ export function CourseMenu() {
                 {error && <p>{error}</p>}
                 <div className="course-container">
                     {
-                        role === "TEACHER" || role === "ADMIN" ? 
                         filteredItems.map(item => (
-                            <CourseTeacherView key={item.courseId} item={item} onDelete={handleDelete} isDeleting={deletingCourseId === item.courseId} />
-                        )) : 
-                        filteredItems.map(item => (
-                            <CourseStudentView key={item.courseId} item={item} />
+                            <CourseView key={item.courseId} item={item} onDelete={handleDelete} isDeleting={deletingCourseId === item.courseId} />
                         ))
                     }
                 </div>
