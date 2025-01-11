@@ -31,10 +31,12 @@ export function UserProvider({ children }) {
             if (response.ok) {
                 setError('');
                 const data = await response.json();
-                const { role, surname, name } = data;
-                const userData = { name, surname, role };
+                const { role, surname, name, userId } = data;
+                console.log(data);
+                const userData = { name, surname };
                 localStorage.setItem('user', JSON.stringify(userData));
                 localStorage.setItem('role', role);
+                localStorage.setItem('userId', userId);
                 setUser(userData);
                 navigate('/courses');
             } else {
@@ -50,6 +52,7 @@ export function UserProvider({ children }) {
         setUser(null);
         localStorage.removeItem('user');
         localStorage.removeItem('role');
+        localStorage.removeItem('userId');
         navigate('/login');
     };
 

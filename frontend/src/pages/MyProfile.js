@@ -11,7 +11,6 @@ export const MyProfile = () => {
     const [passwordChanged, setPasswordChanged] = useState(false);
 
     useEffect(() => {
-        console.log('sending id: ' + userId)
         const fetchUserProfile = async () => {
             const response = await getUserById(userId);
             setUser(response);
@@ -30,7 +29,7 @@ export const MyProfile = () => {
         <div className="profile-container">
             {user ? (
                 <>
-                    <h1>{user.username + ' ' + user.surname}'s Profile</h1>
+                    <h1>{user.name + ' ' + user.surname}'s Profile</h1>
                     <p>Username: {user.username}</p>
 
                     {user.userRole === 'TEACHER' && (
