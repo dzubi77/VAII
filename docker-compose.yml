@@ -1,9 +1,8 @@
-version: '3.8'
-
 services:
   frontend:
-    build: 
-      context: ./frontend
+    build:
+      context: ./frontend/  # Adjusted to point to the correct frontend directory
+      dockerfile: Dockerfile  # Ensure you're using the Dockerfile in the frontend directory
       args:
         REACT_APP_BACKEND_URL: http://localhost:8080
     ports:
@@ -38,7 +37,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432" 
+      - "5432:5432"
     networks:
       - app-network
 

@@ -50,7 +50,12 @@ public class UserService {
     }
 
     public void deleteUser(UUID id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.getEnrolledCourses().forEach(course -> course.getStudents().remove(user));
+            user.getCourses().forEach(course -> course.setInstructor(null));
+            userRepository.delete(user);
+        }
     }
 
     public boolean authenticate(String username, String password) {
