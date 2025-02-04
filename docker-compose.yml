@@ -1,8 +1,8 @@
 services:
   frontend:
     build:
-      context: ./frontend/  # Adjusted to point to the correct frontend directory
-      dockerfile: Dockerfile  # Ensure you're using the Dockerfile in the frontend directory
+      context: ./frontend/ 
+      dockerfile: Dockerfile
       args:
         REACT_APP_BACKEND_URL: http://localhost:8080
     ports:

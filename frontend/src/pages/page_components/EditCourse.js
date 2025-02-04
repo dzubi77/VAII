@@ -4,6 +4,8 @@ import '../../styles/course_style.css';
 import { getCourseById, updateCourse, addCourse } from '../../service/CourseAPI';
 import FormValidation from '../../service/FormValidation';
 
+//TODO: add Cancel button
+
 export function EditCourse() {
     const { courseId } = useParams();
     const navigateTo = useNavigate();
@@ -41,6 +43,7 @@ export function EditCourse() {
     };
 
     const { formData, setFormData, error, handleChange, handleSubmit } = FormValidation(initialFormData, validateForm);
+    const instructorId = localStorage.getItem('userId');
 
     useEffect(() => {
         if (courseId) {
@@ -66,7 +69,7 @@ export function EditCourse() {
         if (courseId) {
             await updateCourse(courseId, course);
         } else {
-            await addCourse(course);
+            await addCourse(course, instructorId);
         }   
 
         navigateTo('/courses');

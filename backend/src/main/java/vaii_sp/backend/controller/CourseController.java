@@ -18,8 +18,8 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<Course> addCourse(@RequestBody Course course) {
-        Course c = courseService.addCourse(course);
+    public ResponseEntity<Course> addCourse(@RequestBody Course course, @RequestParam UUID instructorId) {
+        Course c = courseService.addCourse(course, instructorId);
         if (c == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

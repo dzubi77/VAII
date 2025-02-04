@@ -1,8 +1,10 @@
 package vaii_sp.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import vaii_sp.backend.controller.UserWOP;
 
 import java.util.Set;
 import java.util.UUID;
@@ -23,16 +25,18 @@ public class Course {
     private int studentCount = 0;
     private int maxStudentCount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_id")
+    @JsonIgnoreProperties("courses")
     private User instructor;
-
+    /*
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Assignment> assignments;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks;
-
+    */
     @ManyToMany(mappedBy = "enrolledCourses")
+    @JsonIgnore
     private Set<User> students;
 }

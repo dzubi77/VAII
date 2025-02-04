@@ -10,8 +10,8 @@ export const fetchItems = async (setItems, setError) => {
     }
 };
 
-export const addCourse = async (course) => {
-    const response = await fetch(`${COURSE_API_URL}`, {
+export const addCourse = async (course, instructorId) => {    
+    const response = await fetch(`${COURSE_API_URL}?instructorId=${instructorId}`, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json",
@@ -73,4 +73,14 @@ export const deleteCourse = async (id) => {
         return await response.json();
     }
     return null;
+}
+
+export const enrollStudent = async (courseId, studentId) => {
+    const response = await fetch(`${COURSE_API_URL}/${courseId}/enroll/${studentId}`, {
+        method: "PUT",
+    });
+    if (!response.ok) {
+        throw new Error("Failed to enroll student!");
+    }
+    return response;
 }

@@ -1,9 +1,7 @@
-package vaii_sp.backend.controller;
+package vaii_sp.backend.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import vaii_sp.backend.model.Course;
-import vaii_sp.backend.model.User;
 
 import java.util.Set;
 import java.util.UUID;
