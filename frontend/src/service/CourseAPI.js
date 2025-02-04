@@ -84,3 +84,5 @@ export const enrollStudent = async (courseId, studentId) => {
     }
     return response;
 }
+
+//TODO: add removeStudent API call

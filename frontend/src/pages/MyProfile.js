@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById } from '../service/UserAPI'; 
 
+//TODO: add styling
 export const MyProfile = () => {
     const userId = localStorage.getItem('userId');
 

@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../../styles/course_style.css';
 import { getCourseById, updateCourse, addCourse } from '../../service/CourseAPI';
 import FormValidation from '../../service/FormValidation';
-
-//TODO: add Cancel button
 
 export function EditCourse() {
     const { courseId } = useParams();
@@ -48,11 +46,11 @@ export function EditCourse() {
     useEffect(() => {
         if (courseId) {
             const loadCourse = async () => {
-            const course = await getCourseById(courseId);
-            setFormData({
-                courseName: course.courseName,
-                courseDescription: course.courseDescription,
-                maxStudentCount: course.maxStudentCount.toString(),
+                const course = await getCourseById(courseId);
+                setFormData({
+                    courseName: course.courseName,
+                    courseDescription: course.courseDescription,
+                    maxStudentCount: course.maxStudentCount.toString(),
                 });
             };
             loadCourse();
@@ -104,6 +102,7 @@ export function EditCourse() {
                     <button type="submit" className="btn btn-success">
                         {courseId ? "Update" : "Create"} course
                     </button>
+                    <button type="button" className="btn btn-secondary" onClick={() => navigateTo('/courses')}>Cancel</button>
                 </div>
             </form>
         </>
