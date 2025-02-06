@@ -74,7 +74,7 @@ public class CourseService {
         if (course == null || student == null || !student.getUserRole().equals("STUDENT")) {
             return false;
         }
-        if (course.getStudents().contains(student)) {
+        if (course.getStudents().contains(student) || course.getStudentCount() == course.getMaxStudentCount()) {
             return false;
         }
         course.setStudentCount(course.getStudentCount() + 1);

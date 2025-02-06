@@ -60,7 +60,6 @@ export const CourseView = ({ item, onDelete, isDeleting }) => {
     );
 }
 
-//TODO: add assignments
 export const CourseViewMoreInfo = () => {
     const { courseId } = useParams();
     const [course, setCourse] = useState(null);
@@ -160,9 +159,16 @@ export const CourseViewMoreInfo = () => {
                     ))
                 )}
             </div>
-            <Link to={'/courses'} className="btn btn-secondary back-btn">
-                Back to courses...
-            </Link>
+            <div className="btn-container">
+                <Link to={'/courses'} className="btn btn-secondary back-btn">
+                    Back to courses...
+                </Link>
+                {localStorage.getItem('role')?.trim() && 
+                    <Link to={`/course/${courseId}/assignments`} className="btn back-btn">
+                        See course assignments
+                    </Link>
+                }
+            </div>
         </>
     );
 };

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserById, updateUser } from '../service/UserAPI'; 
+import '../styles/profile_style.css';
 
-//TODO: add styling and password change
-//TODO: for students list of their assignments, courses do as references 
 export const MyProfile = () => {
     const userId = localStorage.getItem('userId');
     const [user, setUser] = useState(null);
@@ -10,35 +9,56 @@ export const MyProfile = () => {
     const [coursesAttended, setCoursesAttended] = useState([]);
     const [newPassword, setNewPassword] = useState('');
     const [passwordChanged, setPasswordChanged] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchUserProfile = async () => {
-            const response = await getUserById(userId);
-            setUser(response);
-            setCoursesTaught(response.courses);
-            setCoursesAttended(response.enrolledCourses);
+            try {
+                const response = await getUserById(userId);
+                setUser(response);
+                setCoursesTaught(response.courses);
+                setCoursesAttended(response.enrolledCourses);
+            } catch (err) {
+                setError('Failed to load profile.');
+            }
         };
         fetchUserProfile();
     }, [userId]);
 
     const handlePasswordChange = async () => {
-        await updateUser(userId, user);
+        if (!newPassword) {
+            setError('Password cannot be empty.');
+            return;
+        }
+
+        try {
+            await updateUser(userId, { ...user, password: newPassword });
+            setPasswordChanged(true);
+            setNewPassword('');
+            setError('');
+        } catch (err) {
+            setError('Failed to update password.');
+        }
     };
 
     return (
         <div className="profile-container">
             {user ? (
                 <>
-                    <h1>{user.name + ' ' + user.surname}'s Profile</h1>
-                    <p>Username: {user.username}</p>
+                    <h1>{user.name} {user.surname}'s Profile</h1>
+                    <p><strong>Username:</strong> {user.username}</p>
 
                     {user.userRole === 'TEACHER' && (
                         <>
                             <h3>Courses Taught</h3>
                             {coursesTaught.length > 0 ? (
-                                <ul>
+                                <ul className="courses-list">
                                     {coursesTaught.map(course => (
-                                        <li key={course.courseId}>{course.courseName}</li>
+                                        <li key={course.courseId}>
+                                            <a href={`/course/${course.courseId}`} className="course-link">
+                                                {course.courseName}
+                                            </a>
+                                        </li>
                                     ))}
                                 </ul>
                             ) : (
@@ -51,9 +71,13 @@ export const MyProfile = () => {
                         <>
                             <h3>Courses Attended</h3>
                             {coursesAttended.length > 0 ? (
-                                <ul>
+                                <ul className="courses-list">
                                     {coursesAttended.map(course => (
-                                        <li key={course.courseId}>{course.courseName}</li>
+                                        <li key={course.courseId}>
+                                            <a href={`/course/${course.courseId}`} className="course-link">
+                                                {course.courseName}
+                                            </a>
+                                        </li>   
                                     ))}
                                 </ul>
                             ) : (
@@ -61,11 +85,12 @@ export const MyProfile = () => {
                             )}
                         </>
                     )}
-
+                    <hr></hr>
                     <h3>Change Password</h3>
-                    <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                    <button onClick={handlePasswordChange}>Change Password</button>
-                    {passwordChanged && <p>Password updated successfully!</p>}
+                    <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="password-input"/>
+                    <button onClick={handlePasswordChange} className="btn btn-primary">Change Password</button>
+                    {passwordChanged && <p className="success">Password updated successfully!</p>}
+                    {error && <p className="error">{error}</p>}
                 </>
             ) : (
                 <p>Loading profile...</p>

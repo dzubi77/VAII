@@ -16,8 +16,11 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     @PostMapping
-    public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
-        Assignment a = assignmentService.addAssignment(assignment);
+    public ResponseEntity<Assignment> createAssignment(@RequestParam UUID courseId, @RequestBody Assignment assignment) {
+        System.out.println(assignment.getAssignmentDate());
+        System.out.println(assignment.getAssignmentDescription());
+        System.out.println(assignment.getAssignmentTitle());
+        Assignment a = assignmentService.addAssignment(courseId, assignment);
         return ResponseEntity.status(201).body(a);
     }
 
@@ -27,21 +30,27 @@ public class AssignmentController {
         return assignments != null ?  ResponseEntity.ok(assignments) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Assignment> getAssignment(@PathVariable UUID id) {
-        Assignment assignment = assignmentService.getAssignmentById(id);
+    @GetMapping("/{assignmentId}")
+    public ResponseEntity<Assignment> getAssignment(@PathVariable UUID assignmentId) {
+        Assignment assignment = assignmentService.getAssignmentById(assignmentId);
         return assignment != null ? ResponseEntity.ok(assignment) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Assignment> updateAssignment(@PathVariable UUID id, @RequestBody Assignment assignment) {
-        Assignment updatedAssignment = assignmentService.updateAssignment(assignment, id);
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<List<Assignment>> getAssignmentsByCourse(@PathVariable UUID courseId) {
+        List<Assignment> assignments = assignmentService.getAssignmentsByCourse(courseId);
+        return ResponseEntity.ok(assignments);
+    }
+
+    @PostMapping("/{assignmentId}")
+    public ResponseEntity<Assignment> updateAssignment(@PathVariable UUID assignmentId, @RequestBody Assignment assignment) {
+        Assignment updatedAssignment = assignmentService.updateAssignment(assignment, assignmentId);
         return updatedAssignment != null ? ResponseEntity.ok(updatedAssignment) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAssignment(@PathVariable UUID id) {
-        assignmentService.deleteAssignment(id);
+    @DeleteMapping("/{assignmentId}")
+    public ResponseEntity<Void> deleteAssignment(@PathVariable UUID assignmentId) {
+        assignmentService.deleteAssignment(assignmentId);
         return ResponseEntity.noContent().build();
     }
 }

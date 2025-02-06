@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -21,9 +22,11 @@ public class Assignment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID assignmentId;
 
-    private UUID instructorId;
+    private String assignmentTitle;
     private String assignmentDescription;
-    private Date assignmentDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate assignmentDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")

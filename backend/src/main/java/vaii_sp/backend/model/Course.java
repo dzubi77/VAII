@@ -22,7 +22,7 @@ public class Course {
 
     private String courseName;
     private String courseDescription;
-    private int studentCount = 0;
+    private int studentCount;
     private int maxStudentCount;
 
     @ManyToOne(cascade = CascadeType.ALL)

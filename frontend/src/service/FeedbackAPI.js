@@ -19,7 +19,7 @@ export const addFeedback = async (courseId, authorId, feedbackText) => {
 export const deleteFeedback = async (feedbackId, userId) => {
     try {
         const response = await fetch(`${FEEDBACK_API_URL}/${feedbackId}?userId=${userId}`, {
-                method: "DELETE",
+            method: "DELETE",
         });
         if (!response.ok) {
             throw new Error("Failed to delete feedback.");
