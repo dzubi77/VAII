@@ -23,7 +23,7 @@ public class CourseService {
 
     public Course addCourse(Course course, UUID instructorId) {
         User teacher = userRepository.findById(instructorId).orElse(null);
-        if (teacher == null || !teacher.getUserRole().equals("TEACHER")) {
+        if (teacher == null || !teacher.getUserRole().equals("TEACHER") || course.getStudentCount() < 0 || course.getMaxStudentCount() <= 0) {
             return null;
         }
         course.setInstructor(teacher);
@@ -48,6 +48,9 @@ public class CourseService {
 
     public Course updateCourse(UUID id, Course course) {
         Course oldCourse = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found"));
+        if (course == null || course.getStudentCount() < 0 || course.getMaxStudentCount() <= 0) {
+            return null;
+        }
         oldCourse.setCourseName(course.getCourseName());
         oldCourse.setCourseDescription(course.getCourseDescription());
         oldCourse.setMaxStudentCount(course.getMaxStudentCount());

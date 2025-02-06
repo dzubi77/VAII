@@ -18,7 +18,7 @@ public class AssignmentService {
 
     public Assignment addAssignment(UUID courseId, Assignment assignment) {
         Course course = courseRepository.findById(courseId).orElse(null);
-        if (course != null) {
+        if (course != null && assignment != null) {
             assignment.setCourse(course);
             return assignmentRepository.save(assignment);
         }
