@@ -1,6 +1,5 @@
 package vaii_sp.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -29,14 +28,25 @@ public class Course {
     @JoinColumn(name = "instructor_id")
     @JsonIgnoreProperties("courses")
     private User instructor;
-    /*
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Assignment> assignments;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks;
-    */
+
     @ManyToMany(mappedBy = "enrolledCourses")
     @JsonIgnore
     private Set<User> students;
+
+    public void removeRelationships() {
+        for (Assignment assignment : assignments) {
+            assignment.setCourse(null);
+            assignments.remove(assignment);
+        }
+        for (Feedback feedback : feedbacks) {
+            feedback.setCourse(null);
+            feedbacks.remove(feedback);
+        }
+    }
 }

@@ -60,7 +60,7 @@ export const CourseView = ({ item, onDelete, isDeleting }) => {
     );
 }
 
-//TODO: add styling, feedbacks button, assignments button and return
+//TODO: add styling, assignments and return
 export const CourseViewMoreInfo = () => {
     const { courseId } = useParams();
     const [course, setCourse] = useState(null);
@@ -68,6 +68,8 @@ export const CourseViewMoreInfo = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const userId = localStorage.getItem("userId");
+
+    const role = localStorage.getItem('role');
 
     useEffect(() => {
         const fetchCourseDetails = async () => {
@@ -109,8 +111,8 @@ export const CourseViewMoreInfo = () => {
             <h2>{course.courseName}</h2>
             <p>{course.courseDescription}</p>
 
-            <h3>Feedback</h3>
-            <Link to={`/course/${courseId}/add-feedback`} className="btn btn-primary">Add Feedback</Link>
+            <h3>**********Feedback***********</h3>
+            {role === 'STUDENT' && <Link to={`/course/${courseId}/add-feedback`} className="btn btn-primary">Add Feedback</Link>}
             
             {feedbacks.length === 0 ? (
                 <p>No feedback yet.</p>
@@ -118,15 +120,15 @@ export const CourseViewMoreInfo = () => {
                 feedbacks.map((feedback) => (
                     <div key={feedback.feedbackId} className="feedback-item">
                         <p>{feedback.feedbackText}</p>
-                        {feedback.userId === userId && (
+                        {role === 'ADMIN' && (
                             <>
-                                <Link to={`/course/${courseId}/edit-feedback/${feedback.feedbackId}`} className="btn btn-warning">Edit</Link>
                                 <button onClick={() => handleDeleteFeedback(feedback.feedbackId)} className="btn btn-danger">Delete</button>
                             </>
                         )}
                     </div>
                 ))
             )}
+            <Link to={'/courses'} className="btn btn-primary">Back to courses...</Link>
         </>
     );
 };

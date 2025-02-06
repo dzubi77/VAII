@@ -9,6 +9,8 @@ import vaii_sp.backend.repository.UserRepository;
 
 import java.util.*;
 
+//TODO: form fields validation
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -17,7 +19,9 @@ public class UserService {
 
     public User addUser(User user) {
         user.setPassword(this.hashPassword(user.getPassword()));
-        if (user.getUsername().startsWith("@$")) { //TODO: fix assigning of roles
+        if (user.getUsername().equals("admin")) {
+            user.setUserRole("ADMIN");
+        } else if (user.getUsername().startsWith("@$")) {
             user.setUserRole("TEACHER");
         } else {
             user.setUserRole("STUDENT");

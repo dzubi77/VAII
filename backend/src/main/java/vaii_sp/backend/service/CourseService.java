@@ -10,6 +10,8 @@ import vaii_sp.backend.repository.UserRepository;
 import java.util.List;
 import java.util.UUID;
 
+//TODO: form fields validation
+
 @Service
 @RequiredArgsConstructor
 public class CourseService {
@@ -50,6 +52,7 @@ public class CourseService {
                 userRepository.save(student);
             }
             userRepository.findById(course.getInstructor().getUserId()).ifPresent(teacher -> teacher.deleteAsInstructor(course));
+            course.removeRelationships();
         }
         courseRepository.deleteById(id);
     }
@@ -58,6 +61,9 @@ public class CourseService {
         Course course = this.getCourseById(id);
         User student = userRepository.findById(studentId).orElse(null);
         if (course == null || student == null || !student.getUserRole().equals("STUDENT")) {
+            return false;
+        }
+        if (course.getStudents().contains(student)) {
             return false;
         }
         student.assignCourse(course, true);

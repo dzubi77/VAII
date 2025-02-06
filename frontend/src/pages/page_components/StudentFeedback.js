@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../../styles/course_style.css';
-import { addFeedback, getFeedbackById, deleteFeedback } from '../../service/FeedbackAPI';
+import { addFeedback } from '../../service/FeedbackAPI';
 import FormValidation from '../../service/FormValidation';
 
 //TODO: add styling
 export function EditFeedback() {
     const navigateTo = useNavigate();
-    const { courseId, feedbackId } = useParams(); 
+    const { courseId } = useParams(); 
 
     const initialFormData = {
         feedbackText: "",
@@ -35,14 +35,10 @@ export function EditFeedback() {
     };
 
     const { formData, setFormData, error, handleChange, handleSubmit } = FormValidation(initialFormData, validateForm);
-    const userId = localStorage.getItem('userId');
+    const authorId = localStorage.getItem('userId');
 
     const submitForm = async (formData) => {
-        const feedback = {
-            feedbackText: formData.feedbackText,
-            userId: userId,
-        };
-        await addFeedback(feedback);
+        await addFeedback(courseId, authorId, formData.feedbackText);
         navigateTo(`/course/${courseId}`);
     };
 

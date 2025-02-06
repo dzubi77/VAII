@@ -29,20 +29,19 @@ public class CourseController {
     @GetMapping("/allCourses")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> list = courseService.getAllCourses();
-        return ResponseEntity.ok(list);
+        return list != null ? ResponseEntity.ok(list) : ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable UUID id) {
         Course course = courseService.getCourseById(id);
-        return course != null ? ResponseEntity.ok(course)
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return course != null ? ResponseEntity.ok(course) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Course> updateCourse(@PathVariable UUID id, @RequestBody Course course) {
         Course updatedCourse = courseService.updateCourse(id, course);
-        return ResponseEntity.ok(updatedCourse);
+        return updatedCourse != null ? ResponseEntity.ok(updatedCourse) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/{id}")

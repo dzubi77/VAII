@@ -21,6 +21,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserWOP addUser(@RequestBody User user) {
+        System.out.println(user.getName());
         User newUser = userService.addUser(user);
         return new UserWOP(newUser);
     }
@@ -42,7 +43,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserWOP getUser(@PathVariable UUID id) {
-        System.out.println("Received id: " + id);
         User user = userService.getUserById(id);
         return new UserWOP(user);
     }
