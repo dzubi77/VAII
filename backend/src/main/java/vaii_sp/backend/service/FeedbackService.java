@@ -22,6 +22,7 @@ public class FeedbackService {
     private final UserRepository userRepository;
 
     public Feedback addFeedback(UUID courseId, UUID authorId, String feedbackText) {
+        System.out.println("Received: " + feedbackText + ", " + courseId + ", " + authorId);
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
         Feedback feedback = new Feedback();

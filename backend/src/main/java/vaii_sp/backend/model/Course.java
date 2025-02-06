@@ -2,6 +2,7 @@ package vaii_sp.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +39,11 @@ public class Course {
     @ManyToMany(mappedBy = "enrolledCourses")
     @JsonIgnore
     private Set<User> students;
+
+    @JsonProperty("students")
+    public Set<User> getStudentList() {
+        return students;
+    }
 
     public void removeRelationships() {
         for (Assignment assignment : assignments) {

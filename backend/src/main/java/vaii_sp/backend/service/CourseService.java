@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import vaii_sp.backend.model.Course;
 import vaii_sp.backend.model.User;
 import vaii_sp.backend.repository.CourseRepository;
+import vaii_sp.backend.repository.FeedbackRepository;
 import vaii_sp.backend.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 //TODO: form fields validation
@@ -17,6 +19,7 @@ import java.util.UUID;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final FeedbackRepository feedbackRepository;
 
     public Course addCourse(Course course, UUID instructorId) {
         User teacher = userRepository.findById(instructorId).orElse(null);
@@ -33,7 +36,14 @@ public class CourseService {
     }
 
     public Course getCourseById(UUID id) {
-        return courseRepository.findById(id).isPresent() ? courseRepository.findById(id).get() : null;
+        Optional<Course> courseOpt = courseRepository.findById(id);
+        if (courseOpt.isPresent()) {
+            Course course = courseOpt.get();
+            course.getStudentList();
+            return course;
+        } else {
+            return null;
+        }
     }
 
     public Course updateCourse(UUID id, Course course) {
@@ -52,6 +62,7 @@ public class CourseService {
                 userRepository.save(student);
             }
             userRepository.findById(course.getInstructor().getUserId()).ifPresent(teacher -> teacher.deleteAsInstructor(course));
+            feedbackRepository.deleteAll(course.getFeedbacks());
             course.removeRelationships();
         }
         courseRepository.deleteById(id);
@@ -66,6 +77,7 @@ public class CourseService {
         if (course.getStudents().contains(student)) {
             return false;
         }
+        course.setStudentCount(course.getStudentCount() + 1);
         student.assignCourse(course, true);
         courseRepository.save(course);
         userRepository.save(student);
@@ -78,6 +90,7 @@ public class CourseService {
         if (course == null || student == null) {
             return false;
         }
+        course.setStudentCount(course.getStudentCount() - 1);
         student.dropCourse(course);
         courseRepository.save(course);
         userRepository.save(student);

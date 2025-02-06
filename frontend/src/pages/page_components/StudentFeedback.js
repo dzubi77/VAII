@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../../styles/course_style.css';
+import '../../styles/feedback_style.css';
 import { addFeedback } from '../../service/FeedbackAPI';
 import FormValidation from '../../service/FormValidation';
 
-//TODO: add styling
 export function EditFeedback() {
     const navigateTo = useNavigate();
     const { courseId } = useParams(); 

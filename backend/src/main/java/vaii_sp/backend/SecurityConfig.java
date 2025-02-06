@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults()).authorizeHttpRequests(request ->
-                        request.requestMatchers("/", "/users/**", "/courses", "/courses/**", "/courses/allCourses").permitAll()
+                        request.requestMatchers("/**", "/users/**", "/courses", "/courses/**", "/courses/allCourses").permitAll()
                                 .anyRequest().authenticated()).build();
     }
 
