@@ -1,6 +1,7 @@
 package vaii_sp.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vaii_sp.backend.model.Assignment;
@@ -50,7 +51,11 @@ public class AssignmentController {
 
     @DeleteMapping("/{assignmentId}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable UUID assignmentId) {
-        assignmentService.deleteAssignment(assignmentId);
-        return ResponseEntity.noContent().build();
+        try {
+            assignmentService.deleteAssignment(assignmentId);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

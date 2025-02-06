@@ -60,16 +60,14 @@ export const updateAssignment = async (assignmentId, assignment) => {
 }
 
 export const deleteAssignment = async (assignmentId) => {
-    try {
-        const response = await fetch(`${ASSIGNMENTS_API_URL}/${assignmentId}`, {
-            method: "DELETE",
-        });
-        if (!response.ok) {
-            throw new Error("Failed to delete assignment.");
-        }
-        return true;
-    } catch (error) {
-        console.error("Error deleting assignment:", error);
-        throw error;
+    const response = await fetch(`${ASSIGNMENTS_API_URL}/${assignmentId}`, {
+        method: "DELETE",
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to delete item: ${response.status}`);
     }
+    if (response.status !== 204) {
+        return await response.json();
+    }
+    return null;
 };

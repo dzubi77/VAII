@@ -28,7 +28,7 @@ public class Assignment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate assignmentDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "course_id")
     @JsonIgnore
     private Course course;
