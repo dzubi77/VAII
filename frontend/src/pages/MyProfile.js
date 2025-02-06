@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getUserById } from '../service/UserAPI'; 
+import { getUserById, updateUser } from '../service/UserAPI'; 
 
-//TODO: add styling
+//TODO: add styling and password change
+//TODO: for students list of their assignments, courses do as references 
 export const MyProfile = () => {
     const userId = localStorage.getItem('userId');
-
     const [user, setUser] = useState(null);
     const [coursesTaught, setCoursesTaught] = useState([]);
     const [coursesAttended, setCoursesAttended] = useState([]);
@@ -18,12 +18,11 @@ export const MyProfile = () => {
             setCoursesTaught(response.courses);
             setCoursesAttended(response.enrolledCourses);
         };
-
         fetchUserProfile();
     }, [userId]);
 
     const handlePasswordChange = async () => {
-       
+        await updateUser(userId, user);
     };
 
     return (
@@ -64,12 +63,7 @@ export const MyProfile = () => {
                     )}
 
                     <h3>Change Password</h3>
-                    <input
-                        type="password"
-                        placeholder="New Password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
+                    <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                     <button onClick={handlePasswordChange}>Change Password</button>
                     {passwordChanged && <p>Password updated successfully!</p>}
                 </>

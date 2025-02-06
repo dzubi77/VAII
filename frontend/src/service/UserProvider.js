@@ -32,7 +32,6 @@ export function UserProvider({ children }) {
                 setError('');
                 const data = await response.json();
                 const { role, surname, name, userId } = data;
-                console.log(data);
                 const userData = { name, surname };
                 localStorage.setItem('user', JSON.stringify(userData));
                 localStorage.setItem('role', role);

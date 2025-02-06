@@ -69,7 +69,7 @@ export function EditCourse() {
         } else {
             await addCourse(course, instructorId);
         }   
-
+        
         navigateTo('/courses');
     };
 
@@ -78,26 +78,14 @@ export function EditCourse() {
             <form onSubmit={(e) => handleSubmit(e, submitForm)}>
                 <div className="edit-course-content">
                     <label>Course name: </label>
-                    <input
-                        type="text"
-                        name="courseName"
-                        value={formData.courseName}
-                        onChange={handleChange}
-                    />
+                    <input type="text" name="courseName" value={formData.courseName} onChange={handleChange}/>
+
                     <label>Course description: </label>
-                    <input
-                        type="text"
-                        name="courseDescription"
-                        value={formData.courseDescription}
-                        onChange={handleChange}
-                    />
+                    <textarea type="text" name="courseDescription" value={formData.courseDescription} onChange={handleChange} />
+                    
                     <label>Max student count: </label>
-                    <input
-                        type="text"
-                        name="maxStudentCount"
-                        value={formData.maxStudentCount}
-                        onChange={handleChange}
-                    />
+                    <input type="text" name="maxStudentCount" value={formData.maxStudentCount} onChange={handleChange}/>
+
                     {error && <div>{error}</div>}
                     <button type="submit" className="btn btn-success">
                         {courseId ? "Update" : "Create"} course

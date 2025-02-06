@@ -25,7 +25,7 @@ export const addCourse = async (course, instructorId) => {
     return await response.json();
 }
 
-export const getAllCourses = async() => {
+export const getAllCourses = async () => {
     const response = await fetch(`${COURSE_API_URL}/allCourses`, {
         method: "GET",
     });
@@ -36,7 +36,7 @@ export const getAllCourses = async() => {
     return await response.json();
 }
 
-export const getCourseById = async(id) => {
+export const getCourseById = async (id) => {
     const response = await fetch(`${COURSE_API_URL}/${id}`, {
         method: "GET",
     });
@@ -47,7 +47,7 @@ export const getCourseById = async(id) => {
     return await response.json();
 }
 
-export const updateCourse = async(id, course) => {
+export const updateCourse = async (id, course) => {
     const response = await fetch(`${COURSE_API_URL}/${id}`, {
         method: "PUT", 
         headers: {
@@ -85,4 +85,12 @@ export const enrollStudent = async (courseId, studentId) => {
     return response;
 }
 
-//TODO: add removeStudent API call
+export const dropStudent = async (courseId, studentId) => {
+    const response = await fetch(`${COURSE_API_URL}/${courseId}/drop/${studentId}`, {
+        method: "PUT"
+    });
+    if (!response.ok) {
+        throw new Error("Failed to drop student!");
+    }
+    return response;
+}

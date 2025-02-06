@@ -1,0 +1,223 @@
+.edit-feedback-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.edit-feedback-content label {
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.edit-feedback-content textarea {
+    width: 60%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    font-size: 1rem;
+}
+
+.edit-feedback-content .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.edit-feedback-content .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.edit-feedback-content .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+@media (min-width: 600px) {
+    .edit-feedback-content {
+        max-width: 600px;
+    }
+
+    .edit-feedback-content .btn {
+        width: auto;
+        min-width: 120px;
+    }
+
+    .edit-feedback-content textarea {
+        min-height: 150px;
+    }
+}
+
+@media (min-width: 900px) {
+    .edit-feedback-content {
+        max-width: 700px;
+    }
+
+    .edit-feedback-content .btn {
+        min-width: 150px;
+    }
+}
+
+/*feedback item style*/
+.course-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.course-info h2 {
+    font-size: 2em;
+    color: #333;
+}
+
+.course-info p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.feedback-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.feedback-section h3 {
+    font-size: 1.8em;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-feedback-btn {
+    margin-top: 10px;
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.no-feedback {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+}
+
+.feedback-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.feedback-item p {
+    font-size: 1.1em;
+    color: #444;
+}
+
+.delete-feedback-btn {
+    margin-top: 10px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-feedback-btn:hover {
+    background-color: #c0392b;
+}
+
+.back-btn {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .course-info h2 {
+        font-size: 1.8em;
+    }
+
+    .course-info p {
+        font-size: 1em;
+    }
+
+    .feedback-section h3 {
+        font-size: 1.6em;
+    }
+
+    .feedback-item {
+        padding: 10px;
+    }
+
+    .add-feedback-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .feedback-item p {
+        font-size: 1em;
+    }
+
+    .delete-feedback-btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .back-btn {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-info h2 {
+        font-size: 1.6em;
+    }
+
+    .course-info p {
+        font-size: 0.9em;
+    }
+
+    .feedback-section h3 {
+        font-size: 1.4em;
+    }
+
+    .feedback-item {
+        padding: 8px;
+    }
+
+    .add-feedback-btn,
+    .delete-feedback-btn,
+    .back-btn {
+        padding: 10px;
+    }
+
+    .feedback-item p {
+        font-size: 0.9em;
+    }
+}
+
