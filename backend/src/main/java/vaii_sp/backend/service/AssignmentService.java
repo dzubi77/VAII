@@ -52,8 +52,6 @@ public class AssignmentService {
     }
 
     public void deleteAssignment(UUID assignmentId) {
-        if (assignmentRepository.existsById(assignmentId)) {
-            assignmentRepository.deleteById(assignmentId);
-        }
+        assignmentRepository.deleteById(assignmentId);
     }
 }

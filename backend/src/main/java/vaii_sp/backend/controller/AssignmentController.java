@@ -42,7 +42,7 @@ public class AssignmentController {
         return ResponseEntity.ok(assignments);
     }
 
-    @PostMapping("/{assignmentId}")
+    @PutMapping("/{assignmentId}")
     public ResponseEntity<Assignment> updateAssignment(@PathVariable UUID assignmentId, @RequestBody Assignment assignment) {
         Assignment updatedAssignment = assignmentService.updateAssignment(assignment, assignmentId);
         return updatedAssignment != null ? ResponseEntity.ok(updatedAssignment) : ResponseEntity.notFound().build();

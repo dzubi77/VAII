@@ -43,9 +43,11 @@ export const AssignmentMenu = () => {
 
     const handleDeleteAssignment = async (assignmentId) => {
         try {
-            await deleteAssignment(assignmentId);
-            const updatedAssignments = assignments.filter(a => a.assignmentId !== assignmentId);
-            setAssignments(updatedAssignments);
+            const isDeleted = await deleteAssignment(assignmentId);
+            if (isDeleted) {
+                const updatedAssignments = assignments.filter(a => a.assignmentId !== assignmentId);
+                setAssignments(updatedAssignments);
+            }
         } catch (error) {
             setError('Failed to delete assignment');
         }
@@ -84,9 +86,7 @@ export const AssignmentMenu = () => {
                                                 <Link to={`/course/${courseId}/edit-assignment/${assignment.assignmentId}`} className="btn btn-secondary">
                                                     Edit
                                                 </Link>
-                                                <button 
-                                                    onClick={() => handleDeleteAssignment(assignment.assignmentId)} 
-                                                    className="btn btn-danger">
+                                                <button onClick={() => handleDeleteAssignment(assignment.assignmentId)} className="btn btn-danger">
                                                     Delete
                                                 </button>
                                             </td>
